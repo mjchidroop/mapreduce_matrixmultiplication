@@ -1,11 +1,12 @@
 # Exp 01 Matrix Multiplication using MapReduce
+**Developed by:** Chidroop M J
 
-**Date:**
+**Date:** 24-10-2026
 
 ## AIM:
 To implement Matrix Vector Multiplication using the MapReduce programming model.
-## DESIGN STEPS:
 
+## DESIGN STEPS:
 ### Step 1:
 Clone the repository from GitHub.
 
@@ -31,12 +32,54 @@ Compile and execute the program.
 Verify and display the resulting product matrix.
 
 ## PROGRAM:
+```python
+from collections import defaultdict
 
-*(Paste the code for Matrix Vector Multiplication using MapReduce here.)*
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+vector = [1, 2, 3]
+
+# Mapper:
+def mapper(matrix, vector):
+  mapped = []
+  for i in range(len(matrix)):
+    for j in range(len(matrix[0])):
+      product = matrix[i][j] * vector[j]
+      mapped.append((i, product))
+  return mapped
+
+# Reducer:
+def reducer(mapped):
+  result = defaultdict(int)
+  for key, value in mapped:
+    result[key] += value
+  return result
+
+mapped = mapper(matrix, vector)
+reduced = reducer(mapped)
+
+print("="*20)
+print("Mapped Output:")
+print("-"*20)
+for item in mapped:
+  print(item)
+print("="*20)
+print("="*20)
+print("Final Result:")
+print("-"*20)
+print("(Matrix x Vector):")
+for row in sorted(reduced):
+  print(f"Row {row} : {reduced[row]}")
+print("="*20)
+```
 
 ## OUTPUT:
+<img width="1013" height="480" alt="image" src="https://github.com/user-attachments/assets/39c1c8ed-f36b-497e-af56-4cadb426bec3" />
 
-*(Paste the execution output showing the resultant matrix here.)*
 
 ## RESULT:
 
